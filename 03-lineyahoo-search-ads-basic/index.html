@@ -1,12 +1,185 @@
-<!DOCTYPE html><html lang="ja"><head><meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#0a0a52"><title>LINEヤフー広告 検索広告 Basic（準備中）</title>
-<style>body{margin:0;font-family:-apple-system,"Hiragino Sans",sans-serif;background:#f4f6f8;color:#1b1f24;display:flex;min-height:100vh;align-items:center;justify-content:center;text-align:center;padding:24px;}
-.box{background:#fff;border-radius:18px;box-shadow:0 4px 18px rgba(10,10,40,.08);padding:40px 28px;max-width:420px;}
-.dot{width:30px;height:30px;border-radius:8px;background:#06C755;display:inline-block;margin-bottom:14px;}
-h1{font-size:20px;margin:0 0 6px;color:#0a0a52;} p{color:#8a93a0;line-height:1.7;}
-a{display:inline-block;margin-top:18px;color:#06C755;font-weight:700;text-decoration:none;}</style></head>
-<body><div class="box"><span class="dot"></span>
-<h1>LINEヤフー広告 検索広告<br>Basic</h1>
-<p>このクイズアプリは現在準備中です。<br>完成までしばらくお待ちください。</p>
-<a href="../">← メニューに戻る</a></div></body></html>
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="検索広告Basic">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="theme-color" content="#0a0a52">
+<meta name="format-detection" content="telephone=no">
+<title>LINEヤフー広告 検索広告 Basic 4択クイズ</title>
+<style>
+:root{--green:#06C755;--navy:#0a0a52;--bg:#f4f6f8;--card:#fff;--gray:#8a93a0;--line:#e3e7ec;--red:#e23b3b;}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+html{-webkit-text-size-adjust:100%;}
+body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Yu Gothic UI",sans-serif;background:var(--bg);color:#1b1f24;padding-bottom:env(safe-area-inset-bottom);}
+header{background:var(--navy);color:#fff;padding:calc(12px + env(safe-area-inset-top)) 14px 12px;display:flex;align-items:center;gap:10px;}
+header .dot{width:22px;height:22px;border-radius:6px;background:var(--green);display:inline-block;flex:none;}
+header h1{font-size:15px;margin:0;font-weight:700;flex:1;line-height:1.3;}
+.backbtn{flex:none;display:inline-flex;align-items:center;gap:4px;background:rgba(255,255,255,.14);color:#fff;border:1px solid rgba(255,255,255,.28);border-radius:10px;padding:7px 11px;font-size:13px;font-weight:700;text-decoration:none;cursor:pointer;white-space:nowrap;}
+.backbtn:active{transform:scale(.96);}
+.wrap{max-width:680px;margin:0 auto;padding:14px;}
+.resumeRow{margin-bottom:10px;}
+#resume{width:100%;background:var(--green);color:#fff;border:none;font-weight:700;padding:13px;font-size:15px;border-radius:12px;}
+#resume:disabled{background:#c7ccd2;cursor:default;}
+.controls{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:10px;}
+select,button{font-family:inherit;font-size:14px;border-radius:10px;border:1px solid var(--line);background:#fff;padding:9px 12px;cursor:pointer;}
+select{flex:1;min-width:140px;}
+button:active{transform:scale(.97);}
+.bar{height:8px;background:#e3e7ec;border-radius:99px;overflow:hidden;margin:6px 0 4px;}
+.bar > i{display:block;height:100%;background:var(--green);width:0;transition:width .3s;}
+.stat{display:flex;justify-content:space-between;font-size:12px;color:var(--gray);margin-bottom:12px;}
+.stat b{color:#1b1f24;}
+.card{background:var(--card);border-radius:18px;box-shadow:0 4px 18px rgba(10,10,40,.08);padding:20px 18px 18px;position:relative;}
+.tagrow{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;}
+.tag{font-size:11px;font-weight:700;color:var(--green);background:#eafaf0;padding:4px 10px;border-radius:99px;}
+.num{font-size:12px;color:var(--gray);}
+.qlabel{font-size:12px;font-weight:700;letter-spacing:.1em;color:var(--gray);margin-bottom:8px;}
+.qtext{font-size:19px;line-height:1.6;font-weight:700;margin-bottom:16px;}
+.opt{display:flex;align-items:flex-start;gap:10px;border:2px solid var(--line);border-radius:14px;padding:13px 14px;margin-bottom:10px;cursor:pointer;background:#fff;transition:.12s;}
+.opt:hover{border-color:#cfd6df;}
+.opt input{width:20px;height:20px;margin-top:1px;accent-color:var(--navy);flex:none;}
+.opt .txt{font-size:15px;line-height:1.6;flex:1;}
+.opt .mark{font-size:22px;font-weight:800;line-height:1;flex:none;width:24px;text-align:center;}
+.opt.correct{border-color:var(--green);background:#eafaf0;}
+.opt.wrong{border-color:var(--red);background:#fdeaea;}
+.opt.disabled{cursor:default;}
+.feedback{text-align:center;font-size:17px;font-weight:800;margin:6px 0 2px;min-height:24px;}
+.feedback.ok{color:var(--green);}
+.feedback.ng{color:var(--red);}
+.nav{display:flex;gap:10px;margin-top:14px;}
+.nav button{flex:1;}
+.nav .primary{background:var(--green);color:#fff;border:none;font-weight:700;}
+.modeRow{display:flex;gap:8px;margin-bottom:10px;}
+.modeRow button{flex:1;font-size:13px;padding:8px;}
+.modeRow button.on{background:var(--navy);color:#fff;border-color:var(--navy);}
+.done{text-align:center;padding:46px 20px;}
+.foot{text-align:center;font-size:11px;color:var(--gray);margin:18px 0;}
+</style>
+</head>
+<body>
+<header>
+  <span class="dot"></span>
+  <h1>LINEヤフー広告 検索広告 Basic 4択クイズ</h1>
+  <a class="backbtn" href="../">← メニュー</a>
+</header>
+<div class="wrap">
+  <div class="resumeRow"><button id="resume">▶ 前回の続きから再開</button></div>
+  <div class="modeRow">
+    <button id="mAll" class="on">全問題</button>
+    <button id="mWeak">間違えた問題だけ</button>
+  </div>
+  <div class="controls">
+    <select id="secSel"></select>
+    <button id="shuffle">🔀 シャッフル</button>
+    <button id="reset">↺ 成績リセット</button>
+  </div>
+  <div class="bar"><i id="prog"></i></div>
+  <div class="stat"><span>解答 <b id="pdone">0</b> / <b id="ptot">0</b></span><span>正解 <b id="pknown">0</b>　不正解 <b id="pweak">0</b>　正答率 <b id="prate">-</b></span></div>
+  <div id="cardArea"></div>
+  <div class="nav">
+    <button id="prev">← 前へ</button>
+    <button class="primary" id="next">次へ →</button>
+  </div>
+  <p class="foot">選択肢のチェックボックスを選ぶと自動で答え合わせ（○＝正解／×＝不正解）。「メニュー」を押しても成績・進捗は保存され、「▶ 前回の続きから再開」で続きから再開できます。<br>LINEヤフーマーケティングキャンパス「LINEヤフー広告 検索広告 Basic」教材より作成</p>
+</div>
+<script>
+const DATA = [{"sec": "1.アカウント構造", "q": "検索広告で広告配信を始めるために必ず作成する3つの階層は", "a": "「キャンペーン」「広告グループ」「キーワード・広告」（階層構造になっている）", "d": ["「アカウント」「広告」「クリエイティブ」", "「セグメント」「オーディエンス」「タグ」", "「目的」「予算」「入札」"]}, {"sec": "1.アカウント構造", "q": "新規でアカウントを作成する際の正しい作成順は", "a": "キャンペーン → 広告グループ → キーワード → 広告", "d": ["広告 → キーワード → 広告グループ → キャンペーン", "広告グループ → キャンペーン → 広告 → キーワード", "キーワード → 広告 → キャンペーン → 広告グループ"]}, {"sec": "1.アカウント構造", "q": "検索広告の3つのキャンペーンタイプは", "a": "標準・アプリ訴求・動的検索連動型広告", "d": ["標準・ディスプレイ・動画", "検索・ショッピング・リターゲティング", "ブランド・獲得・認知"]}, {"sec": "1.アカウント構造", "q": "「標準」キャンペーンタイプの配信先デバイスと測定可能なコンバージョン種別は", "a": "配信先＝PC・スマートフォン・タブレット（すべてのデバイス）、CV種別＝ウェブページ・電話発信", "d": ["配信先＝スマホ・タブレットのみ、CV種別＝アプリ", "配信先＝PCのみ、CV種別＝ウェブページのみ", "配信先＝すべて、CV種別＝アプリのみ"]}, {"sec": "1.アカウント構造", "q": "「アプリ訴求」キャンペーンタイプの特徴は", "a": "アプリダウンロード用広告のキャンペーンタイプ。配信先はスマートフォン・タブレット、CV種別はアプリ。広告表示アセットは関連付けできない", "d": ["全デバイスに配信でき、CV種別はウェブページ", "検索クエリーに対し広告タイトルを自動生成する", "PCのみに配信し、電話発信を計測する"]}, {"sec": "1.アカウント構造", "q": "「動的検索連動型広告」キャンペーンタイプの特徴は", "a": "サイト内容と関連性の高い検索クエリーに対して、広告のタイトルを自動生成して配信するキャンペーンタイプ", "d": ["アプリのダウンロードを促す広告を配信する", "ディスプレイ面にバナー広告を自動生成する", "SNSのフォロワーを増やすための広告を配信する"]}, {"sec": "1.アカウント構造", "q": "配信地域の設定ができる単位は", "a": "キャンペーン単位でのみ設定が可能", "d": ["広告グループ単位でのみ設定が可能", "広告単位でのみ設定が可能", "キャンペーン・広告グループ・広告すべての単位"]}, {"sec": "1.アカウント構造", "q": "配信デバイスの設定ができる単位は", "a": "キャンペーン単位と広告グループ単位の両方で設定が可能", "d": ["キャンペーン単位でのみ", "広告単位でのみ", "設定できない（自動で全デバイス配信）"]}, {"sec": "2.マッチタイプ", "q": "キーワードのマッチタイプ3種類は", "a": "完全一致・フレーズ一致・インテントマッチ", "d": ["部分一致・除外一致・拡張一致", "標準一致・拡大一致・限定一致", "前方一致・後方一致・中間一致"]}, {"sec": "2.マッチタイプ", "q": "キーワード候補の探し方3つは", "a": "キーワード入力補助機能から探す・検索クエリーレポートから探す・生成AIによるキーワードの提案から探す", "d": ["競合のサイトをコピーする・SNSから探す・新聞から探す", "入札価格から逆算する・予算から決める・乱数で生成する", "アンケートで聞く・電話で聞く・店頭で聞く"]}, {"sec": "2.マッチタイプ", "q": "1単語のビッグ系キーワードで推奨されるマッチタイプは", "a": "完全一致 または インテントマッチ", "d": ["フレーズ一致のみ", "部分一致のみ", "除外マッチのみ"]}, {"sec": "2.マッチタイプ", "q": "3単語以上のスモール系キーワードで推奨されるマッチタイプは", "a": "インテントマッチの利用を推奨", "d": ["完全一致を推奨", "フレーズ一致を推奨", "マッチタイプの設定は不要"]}, {"sec": "2.マッチタイプ", "q": "2単語のミドル系キーワードで推奨されるマッチタイプは（拡張に懸念がある場合の代替も）", "a": "インテントマッチを推奨。拡張による懸念がある場合はフレーズ一致を検討", "d": ["完全一致を推奨。懸念があればインテントマッチを検討", "フレーズ一致のみで固定", "除外キーワードで対応"]}, {"sec": "3.コンバージョン測定", "q": "「コンバージョン」とは", "a": "広告をクリックしたインターネットユーザーが、広告主の定めた『成果』となる行動をとること", "d": ["広告が表示された回数のこと", "広告がクリックされた回数のこと", "広告の掲載順位が上がること"]}, {"sec": "3.コンバージョン測定", "q": "コンバージョンの代表的な例は", "a": "商品の購入、会員登録、資料請求、電話発信、アプリのダウンロード、オフラインの特定行動（電話・来店など）", "d": ["広告の表示、ページの読み込み、スクロール", "インプレッション、クリック、離脱", "友だち追加、ブロック、既読"]}, {"sec": "3.コンバージョン測定", "q": "タグが設置できない場合のコンバージョン測定はどうなるか", "a": "コンバージョンの数値は取得できず、広告の正確な効果測定もできない（フォーム作成ツール等の確認で運用前後の比較は可能）", "d": ["タグなしでも自動で正確に計測される", "電話で問い合わせれば数値を取得できる", "掲載順位から自動で推定される"]}, {"sec": "4.審査", "q": "広告・キーワードの審査状況はどこで確認できるか", "a": "広告管理ツールで確認できる（掲載不可・停止の理由や推奨対応も確認できる）", "d": ["LINEアプリの設定画面で確認できる", "メールでのみ通知される", "確認する方法はない"]}, {"sec": "4.審査", "q": "動的検索連動型広告のページフィード（ページURL）の通常の審査期間の目安は", "a": "通常約3営業日（混雑時はそれ以上かかる場合もある）", "d": ["通常約1時間", "通常約7営業日", "通常約30営業日"]}, {"sec": "4.審査", "q": "掲載ガイドラインに抵触する広告の入稿を繰り返すなどした場合の対応は", "a": "アカウントの運用が不適切と判断された場合、アカウント全体を停止することがある", "d": ["該当広告のみ非表示にして警告する", "入札価格を強制的に下げる", "ペナルティとして料金が加算される"]}, {"sec": "5.基本指標", "q": "インプレッション数・クリック数・コンバージョン数はそれぞれ何を表すか", "a": "インプレッション数＝広告の表示回数、クリック数＝広告がクリックされた回数、コンバージョン数＝広告成果となる行動の数", "d": ["インプレッション＝クリック数、クリック＝表示回数、CV＝離脱数", "すべて広告費用を表す", "すべて広告の掲載順位を表す"]}, {"sec": "5.基本指標", "q": "CVR（コンバージョン率）とは", "a": "広告をクリックしてから、広告成果となるコンバージョンに至った割合（コンバージョン数÷クリック数）", "d": ["広告が表示された回数のうちクリックされた割合", "コンバージョン数÷インプレッション数", "コスト÷コンバージョン数"]}, {"sec": "5.基本指標", "q": "コンバージョン単価は「コスト÷コンバージョン数」のほか、どの式でも計算できるか", "a": "「平均CPC ÷ コンバージョン率」でも計算できる", "d": ["「クリック数 × インプレッション数」", "「コンバージョン数 × 平均CPC」", "「インプレッション数 ÷ コスト」"]}, {"sec": "5.基本指標", "q": "インプレッションシェアとは", "a": "広告表示機会の総数のうち、実際に広告が表示された回数（インプレッション数）の割合", "d": ["広告がクリックされた割合", "コンバージョンに至った割合", "広告費用が消化された割合"]}, {"sec": "5.基本指標", "q": "インプレッションシェア損失率（予算）と（ランク）の原因の違いは", "a": "（予算）は1日の予算・入札価格・アカウント残高が原因、（ランク）は掲載順位が原因で広告表示機会を獲得できなかった割合", "d": ["（予算）は掲載順位が原因、（ランク）は予算が原因", "どちらも掲載順位だけが原因", "どちらも広告の品質だけが原因"]}, {"sec": "5.基本指標", "q": "インプレッションシェアのデータが反映されるまでの目安と、概算表示の仕様は", "a": "反映まで1〜3日程度かかる場合がある。10%以下は「10%」、90%以上は「90%」と概算で表示される場合がある", "d": ["即時反映され、常に正確な数値が出る", "反映まで30日かかり、5%刻みで表示される", "反映まで1時間で、1%刻みで表示される"]}, {"sec": "6.ターゲティング", "q": "デバイスターゲティングとは", "a": "デバイス（PC・スマホ・タブレット）ごとに入札価格調整率を設定し、特定デバイスの入札価格調整や配信デバイスの絞り込みができるターゲティング", "d": ["地域ごとに配信を絞り込む機能", "曜日・時間帯ごとに配信を調整する機能", "ユーザーの年齢ごとに広告を出し分ける機能"]}, {"sec": "6.ターゲティング", "q": "デバイスごとの改善で、コンバージョン単価が「低い（効率が良い）」デバイスへの対応は", "a": "配信比率を強める", "d": ["配信比率を弱める", "配信を除外する", "入札価格を最低にする"]}, {"sec": "6.ターゲティング", "q": "地域ターゲティング（配信地域判定）で広告が配信される対象は", "a": "指定した地域に所在する可能性があるインターネットユーザーのみ", "d": ["指定地域に関連するキーワードで検索したすべてのユーザー", "全国のすべてのインターネットユーザー", "指定地域以外に所在するユーザーを含む全員"]}, {"sec": "6.ターゲティング", "q": "自動入札が適用されている場合、地域ターゲティングの入札価格調整率が「有効」なままなのはどの自動入札タイプか", "a": "「クリック数の最大化」（他のタイプでは入札価格調整率は無効になる。ただしターゲティング自体は有効）", "d": ["「コンバージョン数の最大化」", "「広告費用対効果の目標値」", "すべての自動入札タイプで無効になる"]}, {"sec": "6.ターゲティング", "q": "曜日・時間帯ターゲティングでできることは", "a": "配信比率の調整や配信除外ができる。営業時間に限りがある場合、営業時間外に広告を配信しない設定もできる", "d": ["デバイスごとの入札価格だけを調整できる", "キーワードを自動生成できる", "コンバージョンタグを設置できる"]}, {"sec": "7.最適化提案", "q": "検索広告の「最適化提案」で提案される2種類は", "a": "「新しいキーワードの追加」と「キャンペーンの1日の予算の増額」", "d": ["「入札価格の引き下げ」と「広告の削除」", "「アカウントの停止」と「審査の再申請」", "「デバイスの追加」と「地域の拡大」"]}, {"sec": "7.最適化提案", "q": "最適化提案が表示されない主な理由に含まれるものは", "a": "入稿アイテムが揃っていない、広告掲載の実績が少ない・始まったばかり、すでにアカウントが最適化されており提案の必要がない", "d": ["広告費用を使い切っているため", "審査に合格していないため", "管理権限がないため"]}, {"sec": "8.対象外キーワード", "q": "対象外キーワードを設定するメリットは", "a": "関連性の低い検索クエリーでの広告表示機会を抑制して品質改善でき、成果に繋がりにくい検索クエリーへの広告費投下を防げる", "d": ["広告の掲載順位を強制的に上げられる", "入札価格を自動で最適化できる", "コンバージョン数を水増しできる"]}, {"sec": "8.対象外キーワード", "q": "複数の対象外キーワードをまとめて管理できる仕組みは", "a": "「対象外キーワードリスト」の作成・管理ができ、複数キャンペーンで効率的に管理できる", "d": ["対象外オーディエンス", "除外デバイスリスト", "ネガティブ広告グループ"]}, {"sec": "9.掲載順位・オークション", "q": "検索広告の掲載順位はどのように決まるか", "a": "広告が掲載されるたびに「広告オークション」が行われ、算出された「オークションランク」を基に掲載順位が決定する", "d": ["入札価格が高い順に自動で決まる", "広告の出稿日が早い順に決まる", "友だちの数が多い順に決まる"]}, {"sec": "9.掲載順位・オークション", "q": "広告の掲載順位を上げるために試すべき項目は", "a": "入札価格を上げる、または広告の品質を上げる", "d": ["広告の本数を増やす、配信地域を広げる", "予算を使い切る、審査を再申請する", "キーワードを削除する、デバイスを絞る"]}, {"sec": "9.掲載順位・オークション", "q": "広告の品質は何によって決定されるか", "a": "推定クリック率や表示URLの過去のクリック率など、複数の要素により決定する", "d": ["入札価格の高さのみ", "広告の文字数のみ", "アカウントの開設日のみ"]}, {"sec": "10.広告文", "q": "検索広告の広告文は主に何で構成されるか", "a": "タイトルと説明文", "d": ["画像と動画", "見出しとロゴ", "キーワードと入札価格"]}, {"sec": "10.広告文", "q": "「標準」キャンペーンのタイトル・説明文の文字数制限は", "a": "タイトル30文字以内、説明文90文字以内", "d": ["タイトル25文字以内、説明文70文字以内", "タイトル15文字以内、説明文50文字以内", "タイトル40文字以内、説明文120文字以内"]}, {"sec": "10.広告文", "q": "「アプリ訴求」キャンペーンのタイトル・説明文の文字数制限は", "a": "タイトル25文字以内、説明文35文字×2行（70文字）以内", "d": ["タイトル30文字以内、説明文90文字以内", "タイトル20文字以内、説明文40文字以内", "タイトルは自動生成、説明文80文字以内"]}, {"sec": "10.広告文", "q": "「動的検索連動型広告」キャンペーンの説明文の文字数制限は", "a": "説明文80文字以内（タイトルは自動生成）", "d": ["説明文90文字以内（タイトル30文字以内）", "説明文70文字以内（タイトル25文字以内）", "説明文120文字以内（タイトル自動生成）"]}, {"sec": "10.広告文", "q": "「標準」「動的検索連動型広告」キャンペーンの文字数カウント方法は", "a": "全角および半角カナを2文字、半角英数を1文字としてカウント", "d": ["半角1バイト、全角3バイトとしてカウント", "すべて1文字としてカウント", "全角1文字、半角0.5文字としてカウント"]}, {"sec": "10.広告文", "q": "「アプリ訴求」キャンペーンの文字数カウント方法は", "a": "半角1バイト、全角3バイトとしてカウント", "d": ["全角・半角カナを2文字、半角英数を1文字としてカウント", "すべて1文字としてカウント", "全角2文字、半角1文字としてカウント"]}, {"sec": "10.広告文", "q": "ユーザーの行動を促す言葉の例は", "a": "「資料請求はこちら」「今すぐお申し込み」「まずは無料体験」など", "d": ["「閲覧禁止」「クリック不要」「対象外」など", "「審査中」「掲載停止」「準備中」など", "「インプレッション」「CVR」「CPC」など"]}, {"sec": "11.ツール・その他", "q": "広告プレビューツールでの地域指定の仕様は", "a": "都道府県単位で地域を指定できる（市区町村単位のプレビューは確認できない）", "d": ["市区町村単位まで指定できる", "指定できず全国のみ確認できる", "海外も含めて指定できる"]}, {"sec": "11.ツール・その他", "q": "広告プレビューツール上のリンクをクリックするとどうなるか", "a": "リンクは無効で、クリックしてもリンク先のページは表示されない", "d": ["通常どおりリンク先が表示される", "課金が発生する", "審査画面に移動する"]}, {"sec": "11.ツール・その他", "q": "操作履歴とは", "a": "広告管理ツールやキャンペーンエディターなどの画面上で行った操作の一覧。ファイルを作成・ダウンロードして確認できる（管理権限または登録更新権限が必要）", "d": ["ユーザーの検索履歴の一覧", "広告のクリック履歴の一覧", "コンバージョンの発生履歴の一覧"]}, {"sec": "11.ツール・その他", "q": "一覧の「表示」（表示項目の編集）でできることは", "a": "表示する項目の選択や並び順の変更など、広告表示項目やパフォーマンスデータをカスタマイズして効率的に管理できる", "d": ["広告の入札価格を一括で変更できる", "キーワードを自動生成できる", "アカウントを停止できる"]}, {"sec": "1.アカウント構造", "q": "「キャンペーン」はどのような管理単位か", "a": "広告グループをまとめる管理単位", "d": ["キーワードをまとめる最小の単位", "広告クリエイティブそのものを指す単位", "アカウント全体を指す最上位の単位ではなく請求の単位"]}, {"sec": "1.アカウント構造", "q": "最終リンク先URL・スマートフォン向けURL・マッチタイプを設定できる単位は", "a": "広告（マッチタイプはキーワード）単位で設定する（キャンペーンや広告グループ単位では設定できない）", "d": ["キャンペーン単位でのみ設定できる", "広告グループ単位でのみ設定できる", "すべての階層で同じように設定できる"]}, {"sec": "1.アカウント構造", "q": "対象外キーワードを設定できる単位は", "a": "キャンペーン単位と広告グループ単位（広告単位では設定できない）", "d": ["広告単位でのみ設定できる", "キャンペーン単位でのみ設定できる", "すべての階層で設定できる"]}, {"sec": "1.アカウント構造", "q": "カスタムパラメータを設定できる単位は", "a": "キャンペーン・広告グループ・広告のすべての単位で設定できる", "d": ["キャンペーン単位でのみ", "広告単位でのみ", "設定できない"]}, {"sec": "3.コンバージョン測定", "q": "コンバージョンを測定するメリットは", "a": "検索広告が商品・サービスの売り上げや認知度の向上にどのくらい貢献しているかを確認でき、結果を利用して広告運用の改善もできる", "d": ["広告の掲載順位を自動で上げられる", "友だちの個人情報を取得できる", "入札価格を自動で最低にできる"]}, {"sec": "3.コンバージョン測定", "q": "コンバージョン率が上がるリンク先の見直しで「どこにあるかわからない状態」を防ぐには", "a": "リンク先にユーザーが欲しい情報を必ず入れる（検索キーワードによってリンク先を変えることも有効）", "d": ["できるだけ多くの商品を1ページに詰め込む", "トップページに一律でリンクさせる", "リンク先を毎回変更しないよう固定する"]}, {"sec": "3.コンバージョン測定", "q": "リンク先ウェブサイトの信頼性を高める方法の例は", "a": "Pマーク（プライバシーマーク）などの第三者機関のロゴ、取引先ロゴ、メディア紹介実績などを掲載し、申し込み後の流れやFAQを入れる", "d": ["広告文と無関係な画像を多く載せる", "価格を表示しないようにする", "問い合わせ先を非公開にする"]}, {"sec": "3.コンバージョン測定", "q": "「何がいいたいかわからないページ」にリンクさせないためのポイントは", "a": "訪問したユーザーが見たときに『何が言いたいか』が一目で伝わる見出しをつけ、広告文と見出しが合っている状態にする", "d": ["見出しを広告文とあえて変えて意外性を出す", "見出しを置かず本文だけにする", "複数の話題を1ページに詰め込む"]}, {"sec": "5.基本指標", "q": "インプレッションシェア損失率（予算）が発生している場合の解消法は", "a": "1日の予算を引き上げることで解消できる", "d": ["広告の品質を下げる", "掲載順位を下げる", "キーワードを削除する"]}, {"sec": "5.基本指標", "q": "インプレッションシェア損失率（ランク）が発生している場合の解消法は", "a": "オークションランクを高める（入札価格を上げる、または広告の品質を上げる）ことで解消できる", "d": ["1日の予算を引き下げる", "配信地域を狭める", "対象外キーワードを増やす"]}, {"sec": "5.基本指標", "q": "オークションランクは何で構成されるか", "a": "広告グループやキーワードに設定した入札価格と、広告の品質で構成される", "d": ["広告の出稿日と予算の大きさ", "友だちの数とフォロワー数", "アカウントの開設年数のみ"]}, {"sec": "5.基本指標", "q": "平均CPCが上昇、またはコンバージョン率が低下したときのコンバージョン単価は", "a": "上昇する", "d": ["下降する", "変化しない", "ゼロになる"]}, {"sec": "5.基本指標", "q": "コンバージョン単価が変動した場合に確認すべきことは", "a": "その要因が平均CPCにあるのか、コンバージョン率にあるのかを確認すると分析を進めやすい", "d": ["インプレッション数だけを確認する", "友だちの増減を確認する", "掲載順位だけを確認する"]}, {"sec": "6.ターゲティング", "q": "デバイスターゲティングを設定できる単位は", "a": "キャンペーンと広告グループに設定できる", "d": ["広告単位でのみ設定できる", "キーワード単位でのみ設定できる", "設定できず自動で全デバイス配信"]}, {"sec": "6.ターゲティング", "q": "デバイスごとの広告実績データを確認する方法は", "a": "パフォーマンスレポートの表示切替で「デバイス」を指定して確認できる", "d": ["広告プレビューツールで確認できる", "操作履歴で確認できる", "審査状況の画面で確認できる"]}, {"sec": "6.ターゲティング", "q": "コンバージョン単価が「高い（効率が悪い）」デバイスへの対応は", "a": "配信比率を弱める", "d": ["配信比率を強める", "入札価格を最大にする", "配信地域を広げる"]}, {"sec": "6.ターゲティング", "q": "曜日・時間帯別の数値はどのレポートで確認できるか", "a": "パフォーマンスレポートの「曜日・時間帯ターゲティングレポート」", "d": ["デバイスターゲティングレポート", "検索クエリーレポート", "インプレッションシェアレポート"]}, {"sec": "9.掲載順位・オークション", "q": "検索広告で入札価格を上げる2つの方法は", "a": "自動入札設定を利用して入札価格を自動調整する／入札価格調整機能を利用する", "d": ["広告の本数を増やす／配信地域を広げる", "予算を使い切る／審査を再申請する", "キーワードを削除する／デバイスを絞る"]}, {"sec": "9.掲載順位・オークション", "q": "入札価格を上げても広告が非表示になる時間が長くなる場合の対処は", "a": "変更後の入札価格でも十分なインプレッション数が見込めるよう、1日の予算の変更も検討する", "d": ["入札価格をさらに下げる", "対象外キーワードを削除する", "広告グループを統合する"]}, {"sec": "10.広告文", "q": "広告文で競合との違いや自社の強みをアピールする「訴求の切り口」の例は", "a": "「満足度〇%」「年間相談実績〇件」などの実績、「地元の〇〇屋さん」「最短〇分で到着」などの地域密着、「選ばれて30年」「創業明治〇年」などの老舗・伝統", "d": ["「閲覧禁止」「クリック不要」などの注意喚起", "「審査中」「準備中」などの状態表示", "「CVR」「CPC」などの専門用語"]}, {"sec": "10.広告文", "q": "一番強調したい文言を目立たせるための配置のコツは", "a": "タイトルの左側に記載すると、より目につきやすくなる", "d": ["説明文の最後に記載する", "タイトルの右端に記載する", "本文中に小さく記載する"]}, {"sec": "10.広告文", "q": "広告出稿の目的達成・効果向上のために、広告文で意識することは", "a": "フェーズに応じたタイトルと説明文を最適化する", "d": ["毎回同じタイトルと説明文を使い続ける", "できるだけ多くのキーワードを詰め込む", "タイトルを空欄にして説明文だけにする"]}, {"sec": "11.ツール・その他", "q": "広告プレビューツールの主な利点は", "a": "インプレッションを増やさずに広告の表示確認ができる", "d": ["クリック数を増やさずにコンバージョンを計測できる", "審査を待たずに広告を配信できる", "入札価格を自動で最適化できる"]}, {"sec": "4.審査", "q": "動的検索連動型広告のページフィードの審査が行われる単位は", "a": "ページURL単位で実施され、審査が完了したページURLから順次クロールが行われ、完了次第広告が配信される", "d": ["キャンペーン単位でまとめて審査される", "アカウント単位で一括審査される", "広告グループ単位で審査される"]}, {"sec": "1.アカウント構造", "q": "「広告グループ」はどのような単位か", "a": "キーワードと広告をまとめる単位", "d": ["広告グループをまとめる上位の管理単位", "アカウント全体の請求をまとめる単位", "コンバージョンを計測する単位"]}, {"sec": "1.アカウント構造", "q": "「動的検索連動型広告」キャンペーンの配信先デバイスと測定可能なコンバージョン種別は", "a": "配信先＝すべてのデバイス、CV種別＝ウェブページ・電話発信", "d": ["配信先＝スマホ・タブレットのみ、CV種別＝アプリ", "配信先＝PCのみ、CV種別＝ウェブページのみ", "配信先＝すべて、CV種別＝アプリのみ"]}, {"sec": "1.アカウント構造", "q": "「アプリ訴求」キャンペーンと広告表示アセットの関係は", "a": "アプリ訴求キャンペーンでは広告表示アセットを関連付けできない", "d": ["アプリ訴求キャンペーンでのみ広告表示アセットを使える", "すべてのキャンペーンで広告表示アセットは必須", "広告表示アセットは自動で生成される"]}, {"sec": "2.マッチタイプ", "q": "マッチタイプの役割は", "a": "広告を表示する検索クエリーの範囲を決め、広告表示を最適化すること", "d": ["広告の掲載順位を直接決めること", "コンバージョン単価を自動で下げること", "広告の文字数を制限すること"]}, {"sec": "2.マッチタイプ", "q": "検索クエリーレポートで特に追加が推奨される検索クエリーは", "a": "コンバージョンに至った検索クエリーのうち、検索量が多いもの", "d": ["クリックされなかった検索クエリー", "コンバージョンに至らなかった検索クエリー", "表示回数が極端に少ない検索クエリー"]}, {"sec": "5.基本指標", "q": "インプレッションシェアなどのデータはどこで確認できるか", "a": "パフォーマンスレポート、およびキャンペーンなどの一覧画面で確認できる", "d": ["広告プレビューツールでのみ確認できる", "操作履歴でのみ確認できる", "審査状況の画面で確認できる"]}, {"sec": "7.最適化提案", "q": "最適化提案の更新頻度は", "a": "毎日更新される", "d": ["週に1回更新される", "月に1回更新される", "年に1回更新される"]}, {"sec": "3.コンバージョン測定", "q": "ウェブサイト上でコンバージョンが完結する場合の測定方法は", "a": "コンバージョン測定機能を利用して、広告管理ツールでコンバージョン数を確認する", "d": ["電話で問い合わせてコンバージョン数を聞く", "掲載順位からコンバージョン数を推定する", "インプレッション数をコンバージョン数とみなす"]}];
+DATA.forEach((d,i)=>d.id=i);
+let store={};
+try{store=JSON.parse(localStorage.getItem('lineqz_search')||'{}');}catch(e){}
+function save(){try{localStorage.setItem('lineqz_search',JSON.stringify(store));}catch(e){}}
+function savePos(id){try{localStorage.setItem('lineqz_search_pos',String(id));}catch(e){}}
+function loadPos(){try{const v=localStorage.getItem('lineqz_search_pos');return v==null?null:+v;}catch(e){return null;}}
+const $=s=>document.querySelector(s);
+let mode='all', sec='ALL', list=[], idx=0;
+function shuffleArr(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
+const secs=[...new Set(DATA.map(d=>d.sec))];
+$('#secSel').innerHTML='<option value="ALL">すべてのセクション ('+DATA.length+'問)</option>'+
+  secs.map(s=>'<option value="'+s+'">'+s+' ('+DATA.filter(d=>d.sec===s).length+'問)</option>').join('');
+function makeOptions(card){
+  if(card._opts) return card._opts;
+  const st=store[card.id];
+  if(st && st.opts){ card._opts=st.opts; return card._opts; }
+  card._opts=shuffleArr([card.a, ...card.d]);
+  return card._opts;
+}
+function refreshResumeBtn(){
+  const has=loadPos()!==null;
+  const b=$('#resume');
+  b.disabled=!has;
+  b.textContent=has?'▶ 前回の続きから再開':'▶ 続きから（まだ記録がありません）';
+}
+function build(){
+  let base=DATA.filter(d=> sec==='ALL'||d.sec===sec);
+  if(mode==='weak') base=base.filter(d=>store[d.id]&&store[d.id].r==='weak');
+  list=base; idx=0; render();
+}
+function render(){
+  const tot=list.length;
+  const known=list.filter(d=>store[d.id]&&store[d.id].r==='known').length;
+  const weak=list.filter(d=>store[d.id]&&store[d.id].r==='weak').length;
+  const done=known+weak;
+  $('#ptot').textContent=tot;$('#pknown').textContent=known;$('#pweak').textContent=weak;
+  $('#pdone').textContent=done;
+  $('#prate').textContent=done?Math.round(known/done*100)+'%':'-';
+  $('#prog').style.width=tot?(done/tot*100)+'%':'0%';
+  const area=$('#cardArea');
+  if(tot===0){area.innerHTML='<div class="card"><div class="done"><h2>🎉</h2><p>このカテゴリに表示する問題がありません。<br>モードやセクションを切り替えてください。</p></div></div>';refreshResumeBtn();return;}
+  if(idx>=tot)idx=tot-1;if(idx<0)idx=0;
+  const d=list[idx];
+  savePos(d.id);
+  refreshResumeBtn();
+  const opts=makeOptions(d);
+  const st=store[d.id];
+  const answered=!!(st && st.sel!==undefined && st.sel!==null);
+  const selIdx=answered?opts.indexOf(st.sel):-1;
+  let html='<div class="card"><div class="tagrow"><span class="tag">'+d.sec+'</span><span class="num">'+(idx+1)+' / '+tot+'</span></div>'+
+    '<div class="qlabel">Q. 次の問いの正しい答えを選んでください</div>'+
+    '<div class="qtext">'+d.q+'</div>';
+  opts.forEach((o,i)=>{
+    const isCorrect=o===d.a;
+    let cls='opt';let mark='';
+    if(answered){cls+=' disabled';
+      if(isCorrect){cls+=' correct';mark='<span class="mark" style="color:var(--green)">○</span>';}
+      else if(i===selIdx){cls+=' wrong';mark='<span class="mark" style="color:var(--red)">×</span>';}
+    }
+    html+='<label class="'+cls+'" data-i="'+i+'"><input type="checkbox" '+(i===selIdx?'checked':'')+' '+(answered?'disabled':'')+'><span class="txt">'+o+'</span>'+mark+'</label>';
+  });
+  if(answered){
+    const ok=opts[selIdx]===d.a;
+    html+='<div class="feedback '+(ok?'ok':'ng')+'">'+(ok?'○ 正解！':'× 不正解')+'</div>';
+  }else{html+='<div class="feedback"></div>';}
+  html+='</div>';
+  area.innerHTML=html;
+  if(!answered){
+    area.querySelectorAll('.opt').forEach(el=>{
+      el.onclick=ev=>{ev.preventDefault();const i=+el.dataset.i;
+        store[d.id]={r:(opts[i]===d.a)?'known':'weak', sel:opts[i], opts:opts};
+        save();render();window.scrollTo({top:0,behavior:'smooth'});};
+    });
+  }
+}
+$('#next').onclick=()=>{idx=(idx+1)%Math.max(list.length,1);render();window.scrollTo(0,0);};
+$('#prev').onclick=()=>{idx=(idx-1+list.length)%Math.max(list.length,1);render();window.scrollTo(0,0);};
+$('#shuffle').onclick=()=>{shuffleArr(list);idx=0;render();};
+$('#resume').onclick=()=>{
+  mode='all';sec='ALL';
+  $('#mAll').classList.add('on');$('#mWeak').classList.remove('on');$('#secSel').value='ALL';
+  list=DATA.slice();
+  const li=loadPos();
+  let start=0;
+  if(li!=null){const p=list.findIndex(d=>d.id===li); if(p>=0) start=Math.min(p+1,list.length-1);}
+  idx=start; render(); window.scrollTo(0,0);
+};
+$('#reset').onclick=()=>{if(confirm('成績（正解・不正解）と続きの位置をすべてリセットしますか？')){store={};DATA.forEach(d=>{delete d._opts;});save();try{localStorage.removeItem('lineqz_search_pos');}catch(e){}build();}};
+$('#secSel').onchange=e=>{sec=e.target.value;build();};
+$('#mAll').onclick=()=>{mode='all';$('#mAll').classList.add('on');$('#mWeak').classList.remove('on');build();};
+$('#mWeak').onclick=()=>{mode='weak';$('#mWeak').classList.add('on');$('#mAll').classList.remove('on');build();};
+document.addEventListener('keydown',e=>{if(e.key==='ArrowRight')$('#next').click();else if(e.key==='ArrowLeft')$('#prev').click();});
+build();
+</script>
+</body>
+</html>
